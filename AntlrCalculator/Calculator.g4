@@ -66,4 +66,3 @@ expression
    | left=expression operator=(STAR|SLASH) right=expression # MultiplicationOrDivision
    | left=expression operator=(PLUS|MINUS) right=expression # AdditionOrSubtraction
    ;
-   
