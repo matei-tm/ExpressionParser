@@ -12,9 +12,17 @@
 				"ms-dotnettools.csharp",
 				"ms-dotnettools.csdevkit",
 				"ms-dotnettools.vscodeintellicode-csharp"
-			]
+			],
+			"settings": {
+				"antlr4.generation": {
+					"mode": "external",
+					"language": "CSharp",
+					"listeners": false,
+					"visitors": true
+				}
+			}
 		}
-	}
+	}	
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
