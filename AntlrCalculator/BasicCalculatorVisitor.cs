@@ -1,15 +1,15 @@
 namespace AntlrCalculator
 {
-    public class BasicCalculatorVisitor : CalculatorBaseVisitor<Double>
+    public class BasicCalculatorVisitor : CalculatorBaseVisitor<double>
     {
 
-        public override Double VisitNumber(CalculatorParser.NumberContext ctx)
+        public override double VisitNumber(CalculatorParser.NumberContext ctx)
         {
-            return Double.Parse(ctx.NUMBER().GetText());
+            return double.Parse(ctx.richNumber().GetText());
         }
 
 
-        public override Double VisitNegation(CalculatorParser.NegationContext ctx)
+        public override double VisitNegation(CalculatorParser.NegationContext ctx)
         {
             return -1 * this.Visit(ctx.right);
         }
@@ -25,7 +25,7 @@ namespace AntlrCalculator
          * @return Double
          */
 
-        public override Double VisitParentheses(CalculatorParser.ParenthesesContext ctx)
+        public override double VisitParentheses(CalculatorParser.ParenthesesContext ctx)
         {
             return this.Visit(ctx.inner);
         }
@@ -34,13 +34,13 @@ namespace AntlrCalculator
          * @return Double
          */
 
-        public override Double VisitPower(CalculatorParser.PowerContext ctx)
+        public override double VisitPower(CalculatorParser.PowerContext ctx)
         {
-            return Math.Pow(this.Visit(ctx.left), this.Visit(ctx.right));
+            return Math.Pow(this.Visit(ctx.left), Visit(ctx.right));
         }
 
 
-        public override Double VisitMultiplicationOrDivision(CalculatorParser.MultiplicationOrDivisionContext ctx)
+        public override double VisitMultiplicationOrDivision(CalculatorParser.MultiplicationOrDivisionContext ctx)
         {
             if (ctx.@operator.Text.Equals("*"))
             {
@@ -51,7 +51,7 @@ namespace AntlrCalculator
         }
 
 
-        public override Double VisitAdditionOrSubtraction(CalculatorParser.AdditionOrSubtractionContext ctx)
+        public override double VisitAdditionOrSubtraction(CalculatorParser.AdditionOrSubtractionContext ctx)
         {
             if (ctx.@operator.Text.Equals("+"))
             {

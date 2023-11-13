@@ -12,6 +12,10 @@ grammar Calculator;
  * MINUS is used for subtraction, but also for negation.
  */
 
+richNumber
+    : (FLOAT | DEC)
+    ;
+
 LEFT_PARENTHESIS: '(';
 RIGHT_PARENTHESIS: ')';
 CARET: '^';
@@ -19,8 +23,14 @@ STAR: '*';
 SLASH: '/';
 PLUS: '+';
 MINUS: '-';
-NUMBER: [0-9]+;
+FLOAT   : DIGIT+ '.' DIGIT*
+        | '.' DIGIT+
+        ;
+DEC     : DIGIT+;
 WHITESPACE: [ \r\n\t]+ -> skip;
+
+fragment DIGIT  : [0-9];
+
 
 /*
  * Production Rules (non-terminal)
@@ -59,10 +69,11 @@ start : expression;
  */
 
 expression
-   : NUMBER                                                 # Number
+   : richNumber                                             # Number
    | MINUS right=expression                                 # Negation
    | LEFT_PARENTHESIS inner=expression RIGHT_PARENTHESIS    # Parentheses
    | left=expression operator=CARET right=expression        # Power
    | left=expression operator=(STAR|SLASH) right=expression # MultiplicationOrDivision
    | left=expression operator=(PLUS|MINUS) right=expression # AdditionOrSubtraction
    ;
+
